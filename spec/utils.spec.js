@@ -121,13 +121,68 @@ describe("formatComments", () => {
         created_by: "butter_bridge"
       }
     ];
-    const refObj = { A: 1 };
+    const refObj = {
+      "They're not exactly dogs, are they?": 1
+    };
     const expected = [
       {
         article_id: 1,
         author: "butter_bridge"
       }
     ];
-    expect(formatComments(input)).to.eql(expected);
+    expect(formatComments(input, refObj)).to.eql(expected);
+  });
+  it("returns an array with correctly formatted data when passed an array with multiple objects", () => {
+    const input = [
+      {
+        body: "I hate streaming noses",
+        belongs_to: "Living in the shadow of a great man",
+        created_by: "icellusedkars",
+        votes: 0,
+        created_at: 1385210163389
+      },
+      {
+        body: "I hate streaming eyes even more",
+        belongs_to: "Living in the shadow of a great man",
+        created_by: "icellusedkars",
+        votes: 0,
+        created_at: 1353674163389
+      },
+      {
+        body: "I am 100% sure that we're not completely sure.",
+        belongs_to: "UNCOVERED: catspiracy to bring down democracy",
+        created_by: "butter_bridge",
+        votes: 1,
+        created_at: 1069850163389
+      }
+    ];
+    const refObj = {
+      "Living in the shadow of a great man": 2,
+      "UNCOVERED: catspiracy to bring down democracy": 3
+    };
+    const expected = [
+      {
+        body: "I hate streaming noses",
+        article_id: 2,
+        author: "icellusedkars",
+        votes: 0,
+        created_at: new Date(1385210163389)
+      },
+      {
+        body: "I hate streaming eyes even more",
+        article_id: 2,
+        author: "icellusedkars",
+        votes: 0,
+        created_at: new Date(1353674163389)
+      },
+      {
+        body: "I am 100% sure that we're not completely sure.",
+        article_id: 3,
+        author: "butter_bridge",
+        votes: 1,
+        created_at: new Date(1069850163389)
+      }
+    ];
+    expect(formatComments(input, refObj)).to.eql(expected);
   });
 });

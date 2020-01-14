@@ -19,9 +19,13 @@ exports.formatDates = list => {
   // }
   // return newArr;
 
-  let result = list.map(({ created_at, ...objects }) => ({
+  // [1, 2, 3].map(a => {
+  //   console.log(a);
+  // });
+
+  let result = list.map(({ created_at, ...restOfKeys }) => ({
     created_at: new Date(created_at),
-    ...objects
+    ...restOfKeys
   }));
   return result;
 };
@@ -39,13 +43,16 @@ exports.formatComments = (comments, articleRef) => {
   const formattedComments = [];
   comments.forEach(item => {
     const newItem = { ...item };
-    for (let i in newItem) {
-      if ((i = created_by)) {
-        newItem[i] = author;
-      }
-      console.log(i, "**");
-    }
-    console.log(newItem);
+    // console.log(newItem);
+    const newObj = {
+      body: newItem.body,
+      author: newItem.created_by,
+      article_id: articleRef[newItem.belongs_to],
+      created_at: new Date(newItem.created_at),
+      votes: newItem.votes
+    };
+    console.log(newObj);
+    formattedComments.push(newObj);
   });
   return formattedComments;
 };
