@@ -10,21 +10,29 @@ exports.formatDates = list => {
   //   }
   //   return items;
   // });
-  const newArr = [];
-  if (list.length !== 0) {
-    const reformattedDate = new Date(list[0].created_at);
-    const formattedArticle = { created_at: reformattedDate };
-    newArr.push(formattedArticle);
-  }
-  return newArr;
+
+  // const newArr = [];
+  // if (list.length !== 0) {
+  //   const reformattedDate = new Date(list[0].created_at);
+  //   const formattedArticle = { created_at: reformattedDate };
+  //   newArr.push(formattedArticle);
+  // }
+  // return newArr;
+
+  let result = list.map(({ created_at, ...objects }) => ({
+    created_at: new Date(created_at),
+    ...objects
+  }));
+  return result;
 };
 
-// const object = { a: 1, b: 2, c: 3 };
-
-// for (const property in object) {
-//   console.log(`${property}: ${object[property]}`);
-// }
-
-exports.makeRefObj = list => {};
+exports.makeRefObj = list => {
+  let obj = {};
+  for (let position in list) {
+    obj[list[position].title] = list[position].article_id;
+  }
+  // console.log(obj);
+  return obj;
+};
 
 exports.formatComments = (comments, articleRef) => {};
