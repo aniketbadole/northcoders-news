@@ -10,6 +10,7 @@ exports.formatDates = list => {
   //   }
   //   return items;
   // });
+  // use map
 
   // const newArr = [];
   // if (list.length !== 0) {
