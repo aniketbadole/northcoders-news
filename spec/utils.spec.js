@@ -110,4 +110,24 @@ describe("makeRefObj", () => {
   });
 });
 
-describe("formatComments", () => {});
+describe("formatComments", () => {
+  it("returns an empty array when given an empty array", () => {
+    expect(formatComments([])).to.eql([]);
+  });
+  it("returns an array with author and article_id when passed an array with one object", () => {
+    const input = [
+      {
+        belongs_to: "They're not exactly dogs, are they?",
+        created_by: "butter_bridge"
+      }
+    ];
+    const refObj = { A: 1 };
+    const expected = [
+      {
+        article_id: 1,
+        author: "butter_bridge"
+      }
+    ];
+    expect(formatComments(input)).to.eql(expected);
+  });
+});

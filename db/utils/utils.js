@@ -35,4 +35,23 @@ exports.makeRefObj = list => {
   return obj;
 };
 
-exports.formatComments = (comments, articleRef) => {};
+exports.formatComments = (comments, articleRef) => {
+  const formattedComments = [];
+  comments.forEach(item => {
+    const newItem = { ...item };
+    for (let i in newItem) {
+      if ((i = created_by)) {
+        newItem[i] = author;
+      }
+      console.log(i, "**");
+    }
+    console.log(newItem);
+  });
+  return formattedComments;
+};
+
+// Its created_by property renamed to an author key
+// Its belongs_to property renamed to an article_id key
+// The value of the new article_id key must be the id corresponding to the original title value   provided
+// Its created_at value converted into a javascript date object
+// The rest of the comment's properties must be maintained
