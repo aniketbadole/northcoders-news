@@ -52,7 +52,7 @@ exports.formatComments = (comments, articleRef) => {
       created_at: new Date(newItem.created_at),
       votes: newItem.votes
     };
-    console.log(newObj);
+    // console.log(newObj);
     formattedComments.push(newObj);
   });
   return formattedComments;
