@@ -2,8 +2,8 @@ const selectArticles = require("../models/articlesModel");
 
 const sendArticles = (req, res, next) => {
   selectArticles(req.params.article_id)
-    .then(articles => {
-      res.status(200).send({ articles });
+    .then(article => {
+      res.status(200).send({ article });
     })
     .catch(err => {
       console.log(err, "in controller!!");

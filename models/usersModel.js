@@ -5,14 +5,14 @@ const selectUsers = username => {
     .from("users")
     .where("username", "=", username)
     .then(results => {
-      console.log(results, "in usersModel results!");
+      // console.log(results, "in usersModel results!");
       // console.log(username);
       if (results.length === 0) {
-        return Promise.reject({ status: 404,msg: "Not Found" });
+        return Promise.reject({ status: 404, msg: "Not Found" });
       } else {
         return results;
       }
-      console.log("in model!!", results);
+      // console.log("in model!!", results);
     });
 };
 

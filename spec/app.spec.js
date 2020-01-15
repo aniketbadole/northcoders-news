@@ -42,7 +42,7 @@ describe("app", () => {
           .get("/api/users/nonexistentid")
           .expect(404)
           .then(result => {
-            console.log(result.body, "in here!!!!!!!!!!!!!!!");
+            // console.log(result.body, "in here!!!!!!!!!!!!!!!");
           });
       });
       it("GET 200: Get a response with username, avatar and name properties", () => {
@@ -65,12 +65,14 @@ describe("app", () => {
     describe("/articles", () => {
       it("GET 200: Get a response from the server", () => {
         return request(app)
-          .get("/api/articles/1")
+          .get("/api/articles/4")
           .expect(200)
           .then(res => {
             // console.log(res.body.articles[0].article_id);
             // console.log(res.body);
-            expect(res.body.articles[0].article_id).to.equal(1);
+            const { article } = res.body;
+            console.log(article[0]);
+            expect(article[0].article_id).to.equal(4);
           });
       });
       it("GET 200: Get a response with all properties including comment_count", () => {
@@ -78,7 +80,7 @@ describe("app", () => {
           .get("/api/articles/5")
           .expect(200)
           .then(res => {
-            console.log(res.body);
+            // console.log(res.body);
           });
       });
     });
