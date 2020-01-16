@@ -65,14 +65,14 @@ describe("app", () => {
     describe("/articles", () => {
       it("GET 200: Get a response from the server", () => {
         return request(app)
-          .get("/api/articles/4")
+          .get("/api/articles/1")
           .expect(200)
           .then(res => {
             // console.log(res.body.articles[0].article_id);
             // console.log(res.body);
             const { article } = res.body;
             console.log(article[0]);
-            expect(article[0].article_id).to.equal(4);
+            expect(article[0].article_id).to.equal(1);
           });
       });
       it("GET 200: Get a response with all properties including comment_count", () => {
@@ -81,6 +81,39 @@ describe("app", () => {
           .expect(200)
           .then(res => {
             // console.log(res.body);
+          });
+      });
+      it("PATCH - 200: Update the vote when given an article_id and the number of votes", () => {
+        return request(app)
+          .patch("/api/articles/5")
+          .send({ inc_votes: 10 })
+          .expect(200)
+          .then(res => {
+            // console.log(res.body.article[0].votes, "body");
+            expect(res.body.article[0].votes).to.equal(10);
+          });
+      });
+      it("PATCH - 200: Decrement the votes when a negative value is passed", () => {
+        return request(app)
+          .patch("/api/articles/5")
+          .send({ inc_votes: -20 })
+          .expect(200)
+          .then(res => {
+            // console.log(res.body.article[0].votes, "body");
+            expect(res.body.article[0].votes).to.equal(-20);
+          });
+      });
+      it("POST - 201: Posts a comment when given a username and body", () => {
+        return request(app)
+          .post("/api/articles/5/comments")
+          .send({
+            username: "rogersop",
+            body: "Bastet walks amongst us, and the cats are taking arms!"
+          })
+          .expect(201)
+          .then(res => {
+            console.log(res.body.comments[0]);
+            expect(res.body.comments[0].author).to.equal("rogersop");
           });
       });
     });

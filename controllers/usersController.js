@@ -6,7 +6,7 @@ const sendUsers = (req, res, next) => {
       res.status(200).send({ users });
     })
     .catch(err => {
-      console.log(err, "in controller!");
+      // console.log(err, "in controller!");
       next(err);
     });
 };

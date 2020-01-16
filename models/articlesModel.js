@@ -1,4 +1,5 @@
 const connection = require("../db/connection");
+
 const selectArticles = article_id => {
   return connection("articles")
     .select("articles.*")
@@ -17,14 +18,27 @@ const selectArticles = article_id => {
     });
 };
 
-module.exports = selectArticles;
+const changeVotesInArticle = (article_id, inc_votes) => {
+  return connection
+    .from("articles")
+    .where("articles.article_id", article_id)
+    .increment("votes", inc_votes)
+    .returning("*")
+    .then(results => {
+      // console.log(results, "in changeVotesInArticle model!!");
+      return results;
+    });
+};
 
-// const selectArticles = article_id => {
-//   return connection("articles")
-//     .select("*")
-//     .from("articles")
-//     .where("article_id", "=", article_id);
-//   // .then(results => {
-//   //   console.log(results, "in articleModel results!");
-//   // });
-// };
+const postComments = (article_id, username, body) => {
+  return connection
+    .from("comments")
+    .insert({ article_id: article_id, author: username, body: body })
+    .returning("*")
+    .then(results => {
+      console.log(results, "postComment results");
+      return results;
+    });
+};
+
+module.exports = { selectArticles, changeVotesInArticle, postComments };
