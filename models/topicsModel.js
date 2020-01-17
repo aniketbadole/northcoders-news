@@ -6,7 +6,11 @@ const selectTopics = () => {
     .select("*")
     .from("topics")
     .then(results => {
-      // console.log(results, "in topicsModel results!");
+      console.log(results, "in topicsModel results!");
+      return results;
+    })
+    .catch(err => {
+      next(err);
     });
 };
 

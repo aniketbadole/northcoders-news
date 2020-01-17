@@ -1,7 +1,7 @@
 const selectTopics = require("../models/topicsModel");
 
 const getTopics = (req, res, next) => {
-  console.log("----------- in topicController : getTopics");
+  // console.log("----------- in topicController : getTopics");
   selectTopics()
     .then(topics => {
       res.status(200).send({ topics });
@@ -10,4 +10,4 @@ const getTopics = (req, res, next) => {
       next(err);
     });
 };
-module.exports = selectTopics;
+module.exports = getTopics;
