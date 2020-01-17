@@ -197,7 +197,7 @@ describe("app", () => {
           })
           .expect(201)
           .then(res => {
-            console.log(res.body.comments[0], "???????????");
+            // console.log(res.body.comments[0], "???????????");
             expect(res.body.comments[0].author).to.equal("rogersop");
           });
       });
